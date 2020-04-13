@@ -1,0 +1,19 @@
+import re
+import requests
+import time
+import datetime
+
+while True:
+    cot_dolar = requests.get("https://www.remessaonline.com.br/cotacao/cotacao-dolar")
+    temperatura = requests.get("https://www.google.com.br/search?client=opera&q=clima+sao+paulo&sourceid=opera&ie=UTF-8&oe=UTF-8")
+    cot_euro = requests.get("https://www.remessaonline.com.br/cotacao/cotacao-euro")
+
+    printar_dolar = re.findall(r"\d\,\d\d \w\w\w\w\w", str(cot_dolar.text))
+    printar_euro = re.findall(r"\d\,\d\d \w\w\w\w\w", str(cot_euro.text))
+    printar_temperatura = re.findall(r"\w\w°", str(temperatura.text))
+
+    print("O dólar custa no momento:", printar_dolar)
+    print("O euro custa no momento:", printar_euro)
+    print("A temperatura atual de São Paulo é:", printar_temperatura)
+    print("Data e horário: ", datetime.datetime.now())
+    time.sleep(5)
